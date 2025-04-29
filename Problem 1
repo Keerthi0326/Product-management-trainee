@@ -1,0 +1,155 @@
+Here’s a complete solution tailored to your **Product Requirement and Low-Fidelity Wireframes** problem statement, covering everything from understanding the user need to final deliverables.
+
+---
+
+## **Product Requirements Document (PRD)**
+
+### **1. Title**
+**Container Image Vulnerability Scanner**
+
+---
+
+### **2. Background / Task**
+In a containerized environment, security risks often stem from vulnerabilities in dependencies packaged within container images. With thousands of images stored in repositories, users need a streamlined way to:
+- Identify images with vulnerabilities.
+- Assess the severity of those vulnerabilities.
+- Take action quickly and efficiently, especially for critical/high severity issues.
+
+---
+
+### **3. User Problem**
+**As a user**, I need to:
+- Know **which container images are vulnerable**.
+- Understand **how severe the vulnerabilities are**.
+- **Prioritize and fix** images with **critical or high vulnerabilities**.
+- Do this across **thousands of images** efficiently.
+
+---
+
+### **4. Goals**
+- Scan and present vulnerabilities per image.
+- Support filtering/sorting by severity.
+- Provide detailed vulnerability information (CVE ID, fix availability, package affected).
+- Help users take action (fix, export, rescan, tag).
+
+---
+
+### **5. User Personas**
+| Persona | Goal |
+|--------|------|
+| DevOps Engineer | Quickly identify and patch vulnerable images. |
+| Security Analyst | Audit and analyze vulnerabilities in detail. |
+| Engineering Manager | View high-level risk metrics and trends. |
+
+---
+
+### **6. Key Features**
+
+#### A. **Dashboard Overview**
+- Total number of container images scanned.
+- Total number of images with critical/high vulnerabilities.
+- Pie/bar chart of vulnerability severity distribution.
+- Recent scans and timestamps.
+
+#### B. **Image Vulnerability Table**
+- Columns:
+  - Image Name
+  - Tag
+  - Last Scanned
+  - #Critical, #High, #Medium, #Low
+  - Fix Available (Yes/No)
+- Actions:
+  - Filter by severity, fix availability.
+  - Search by image name.
+  - Sortable columns.
+
+#### C. **Image Details Page**
+- CVE ID
+- Severity
+- Description
+- Affected Package
+- Fix Version
+- Link to CVE advisory
+- Action button: “View Fix” or “Mark as Resolved”
+
+#### D. **Bulk Actions Modal**
+- Export vulnerabilities (CSV/PDF)
+- Rescan selected images
+- Tag images for priority or follow-up
+
+---
+
+### **7. Non-functional Requirements**
+- Secure user authentication (role-based access)
+- Scalable backend to handle thousands of images
+- Responsive web UI for different screen sizes
+- High-performance search and filtering
+
+---
+
+### **8. Success Metrics**
+- Average time to detect and resolve critical vulnerabilities
+- % of critical/high issues fixed within defined SLAs
+- Adoption rate of remediation actions (export, fix, rescan)
+
+---
+
+## **Low-Fidelity Wireframes (Screens)**
+
+You now have the first wireframe already created (dashboard view). Remaining screen descriptions:
+
+---
+
+### **1. Dashboard View**
+Already delivered – includes:
+- Summary metrics
+- Vulnerability pie chart
+- Search/filter controls
+- Image table preview
+
+---
+
+### **2. Image Table View (Expanded)**
+- Same layout as dashboard table section but full page
+- Add pagination
+- Export/Tag/Rescan bulk action buttons at top right
+
+---
+
+### **3. Image Details View**
+- Header: Image name + tag
+- Vulnerability list with detailed table:
+  - CVE ID | Severity | Package | Fix Version | Action
+- “Remediation Steps” panel
+
+---
+
+### **4. Modal – Export/Rescan/Tag**
+- Modal triggered by selecting multiple images
+- Buttons: “Export CSV”, “Rescan”, “Apply Tag”
+- Drop-down to select tags (e.g., “To Fix”, “Deprioritized”)
+
+---
+
+## **Bonus: Development Action Items**
+
+### **Frontend**
+- Build responsive dashboard and table components
+- Implement modal and filter controls
+- Create image detail page with expandable vulnerability rows
+
+### **Backend**
+- API to fetch scanned image data, vulnerabilities, metadata
+- CVE integration (e.g., NVD API)
+- Fix suggestion service
+- Tagging and export functionality
+
+### **Infrastructure**
+- Scheduled container scans (integrate tools like Trivy or Clair)
+- Store scan results in a scalable DB
+- User roles & permissions system
+
+---
+
+Would you like me to now generate wireframes for the **Image Details View**, **Table View (Full)**, and **Modal** as well?
+
