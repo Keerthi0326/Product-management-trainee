@@ -1,0 +1,57 @@
+Here's how you can approach **Problem Statement 2: Kubernetes Security Scan** step by step and generate the required deliverable.
+
+---
+
+## **Step-by-Step Process**
+
+### **1. Set Up a Local Kubernetes Cluster**
+You can use any of the following options:
+
+- **Minikube**  
+  ```bash
+  minikube start
+  ```
+
+- **Kind (Kubernetes IN Docker)**  
+  ```bash
+  kind create cluster
+  ```
+
+- **K3s** (lightweight Kubernetes)  
+  ```bash
+  curl -sfL https://get.k3s.io | sh -
+  ```
+
+Choose the one that best suits your system. **Minikube** is a common choice for quick local development.
+
+---
+
+### **2. Install a Kubernetes Security Tool**
+
+#### Example: **Kubescape**
+Kubescape is a widely-used open-source Kubernetes security scanner.
+
+**Install Kubescape CLI**  
+```bash
+curl -s https://raw.githubusercontent.com/kubescape/kubescape/master/install.sh | /bin/bash
+```
+
+---
+
+### **3. Run a Kubernetes Security Scan**
+Once installed and your local cluster is running, scan it:
+
+```bash
+kubescape scan --format json --output k8s-findings.json
+```
+
+This command will generate a file named `k8s-findings.json` containing all the findings in JSON format.
+
+---
+
+### **4. Submit Deliverable**
+You can now submit the `k8s-findings.json` file as your deliverable.
+
+If you’d like, you can upload the file here and I can help interpret or format it if needed.
+
+Would you like help installing the tools or running the commands on your machine?
