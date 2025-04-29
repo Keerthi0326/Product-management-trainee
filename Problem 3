@@ -1,0 +1,165 @@
+**Problem Statement 3** step-by-step so you can complete it clearly:
+
+---
+
+# **Problem Statement 3: Create and Deploy a GoLang Web App showing Date & Time**
+
+---
+
+## **Step 1: Create GoLang Web Application and Push to GitHub + DockerHub**
+
+### 1.1 Create a simple GoLang program (web server)
+
+Here’s the basic Go code:
+
+```go
+// main.go
+package main
+
+import (
+    "fmt"
+    "net/http"
+    "time"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    currentTime := time.Now().Format("2006-01-02 15:04:05")
+    fmt.Fprintf(w, "Current Date and Time: %s", currentTime)
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    fmt.Println("Server starting at port 8080...")
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+This will create a **simple HTTP server** that shows the **current date and time** when accessed.
+
+---
+
+### 1.2 Create a `Dockerfile`
+
+```Dockerfile
+# Dockerfile
+FROM golang:1.20-alpine
+
+WORKDIR /app
+
+COPY . .
+
+RUN go build -o server .
+
+EXPOSE 8080
+
+CMD ["./server"]
+```
+
+---
+
+### 1.3 Build and Push the Docker Image
+
+First, **build the Docker image**:
+
+```bash
+docker build -t your-dockerhub-username/datetime-app:latest .
+```
+
+Then **push it to DockerHub**:
+
+```bash
+docker login
+docker push your-dockerhub-username/datetime-app:latest
+```
+
+**(Make sure to replace `your-dockerhub-username` with your real DockerHub username!)**
+
+---
+
+## **Step 2: Deploy on Kubernetes (Declarative Approach with 2 Replicas)**
+
+### 2.1 Create a Kubernetes Deployment YAML
+
+```yaml
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datetime-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: datetime-app
+  template:
+    metadata:
+      labels:
+        app: datetime-app
+    spec:
+      containers:
+      - name: datetime-app
+        image: your-dockerhub-username/datetime-app:latest
+        ports:
+        - containerPort: 8080
+```
+
+---
+
+### 2.2 Create a Kubernetes Service YAML to Expose it
+
+```yaml
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: datetime-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: datetime-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+```
+
+- `LoadBalancer` will expose the app to the internet (WAN) if you are running on a cloud provider like AWS, GCP, Azure, or you can simulate it on Minikube using `minikube tunnel`.
+
+---
+
+### 2.3 Deploy to Kubernetes
+
+Apply both files:
+
+```bash
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+```
+
+Check pods:
+
+```bash
+kubectl get pods
+```
+
+Check services:
+
+```bash
+kubectl get svc
+```
+
+You will get an **External IP** address for `datetime-service` — that's your public (WAN) endpoint!
+
+---
+
+## **Summary of Deliverables**
+| Step | Deliverable |
+|:----|:------------|
+| Step 1 | GitHub repo with GoLang web app, DockerHub image |
+| Step 2 | Kubernetes Deployment YAML + 2 replicas |
+| Step 3 | Exposed LoadBalancer service accessible from WAN |
+
+---
+
+Would you like me to also show a sample folder structure and ready GitHub README template you can use directly?  
+It'll make your project super professional!
